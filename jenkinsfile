@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+    
+    environment {
+        
+        name = 'gaurav'
+    }
+
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+    
+        stage('environment variable') {
+            environment {
+                      username = 'viresh'
+    }
+            steps {
+                echo "$BUILD_ID"
+                echo "$name"
+                echo "$username"
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo 'Hello World'
+                 echo "$name"
+                echo "$username"
+            }
+        }
+         stage('input parameter') {
+             input {
+                  message "this is fine"
+                  ok "please start"
+             }
+            steps {
+                echo 'Hello World'
+            }
+        }
+    }
+    
+    post {
+        always {
+            echo "i will always say hello "
+        }
+         failure {
+             echo "failure"
+         }
+         success {
+             echo "successful"
+         }
+    }
+}
